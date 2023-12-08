@@ -1,6 +1,6 @@
 import fs from 'fs'
 
-fs.appendFile('my-file.txt', 'File created Node.js', (err) => {
+fs.appendFile('my-file.txt', 'File created Node.js!', (err) => {
     if (err) throw err
     console.log('File saved!')
 })
