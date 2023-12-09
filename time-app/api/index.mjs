@@ -30,5 +30,5 @@ app.delete('/time/:id', async (req, res) => {
 })
 
 app.listen(PORT, () => {
-  console.log(`Express web server is running at http://localhost:${PORT}`)
+  console.log(`Express web server is running at http://192.168.3.110:${PORT}`)
 })
