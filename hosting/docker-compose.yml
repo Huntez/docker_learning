@@ -28,16 +28,35 @@ services:
     environment:
       PMA_HOST: mysql
     ports:
-      - '82:80'
-  wordpress:
+      - '81:80'
+  wordpress-itstep-first:
     depends_on:
       - mysql
     restart: always
     image: wordpress
     ports:
-      - '81:80'
+      - '82:80'
     environment:
       WORDPRESS_DB_HOST: mysql
       WORDPRESS_DB_USER: wordpress
       WORDPRESS_DB_PASSWORD: password
       WORDPRESS_DB_NAME: wordpress
+    volumes:
+      - ./Wordpress/wp-config.php:/var/www/html/wp-config.php
+      - ./Wordpress/wp-content:/var/www/html/wp-content
+  wordpress-itstep-second:
+    depends_on:
+      - mysql
+    restart: always
+    image: wordpress
+    ports:
+      - '83:80'
+    environment:
+      WORDPRESS_DB_HOST: mysql
+      WORDPRESS_DB_USER: wordpress
+      WORDPRESS_DB_PASSWORD: password
+      WORDPRESS_DB_NAME: wordpress
+    volumes:
+      - ./Wordpress/wp-config.php:/var/www/html/wp-config.php
+      - ./Wordpress/wp-content:/var/www/html/wp-content
+  
