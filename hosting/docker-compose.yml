@@ -15,11 +15,9 @@ services:
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: password
-      MYSQL_DATABASE: wordpress
-      MYSQL_USER: wordpress
-      MYSQL_PASSWORD: password
     volumes:
       - ./MySQL/db:/var/lib/mysql
+      - ./MySQL/init:/docker-entrypoint-initdb.d
   pma:
     depends_on:
       - mysql
@@ -59,4 +57,32 @@ services:
     volumes:
       - ./Wordpress/wp-config.php:/var/www/html/wp-config.php
       - ./Wordpress/wp-content:/var/www/html/wp-content
+  joomla:
+    image: joomla
+    depends_on:
+      - mysql
+    environment:
+      JOOMLA_DB_HOST: mysql
+      JOOMLA_DB_USER: joomla
+      JOOMLA_DB_PASSWORD: password
+    ports:
+      - '84:80'
+  opencart:
+    image: bitnami/opencart
+    depends_on:
+      - mysql
+    environment:
+      OPENCART_DATABASE_HOST: mysql
+      OPENCART_DATABASE_NAME: opencart
+      OPENCART_DATABASE_USER: opencart
+      OPENCART_DATABASE_PASSWORD: password
+      OPENCART_HOST: opencart.itstep.loc
+      OPENCART_ENABLE_HTTPS: yes
+    ports:
+      - '85:8080'
+    volumes:
+      - opencart:/bitnami/opencart
   
+volumes:
+  opencart:
+    driver: local
