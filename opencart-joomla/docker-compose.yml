@@ -1,0 +1,35 @@
+version: '3'
+
+services:
+  mysql:
+    image: mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+    volumes:
+      - ./init:/docker-entrypoint-initdb.d
+  adminer:
+    image: adminer
+    ports:
+      - '81:8080'
+  joomla:
+    image: joomla
+    depends_on:
+      - mysql
+    environment:
+      JOOMLA_DB_HOST: mysql
+      JOOMLA_DB_USER: joomla
+      JOOMLA_DB_PASSWORD: password
+    ports:
+      - '80:80'
+  opencart:
+    image: bitnami/opencart
+    depends_on:
+      - mysql
+    environment:
+      OPENCART_DATABASE_HOST: mysql
+      OPENCART_DATABASE_NAME: opencart
+      OPENCART_DATABASE_USER: opencart
+      OPENCART_DATABASE_PASSWORD: password
+    ports:
+      - '82:8080'
