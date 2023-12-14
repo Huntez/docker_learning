@@ -31,5 +31,6 @@ services:
       OPENCART_DATABASE_NAME: opencart
       OPENCART_DATABASE_USER: opencart
       OPENCART_DATABASE_PASSWORD: password
+      OPENCART_HOST: 192.168.3.110:82
     ports:
       - '82:8080'
