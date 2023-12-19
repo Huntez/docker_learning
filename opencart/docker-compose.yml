@@ -19,7 +19,6 @@ services:
     volumes:
       - ./opencart-files/upload:/var/www/opencart
       - ./nginx/conf.d/opencart.itstep.com.conf:/etc/nginx/conf.d/opencart.itstep.com.conf
-      - ./nginx/fastcgi_params/fastcgi.conf:/etc/nginx/fastcgi.conf
     ports:
       - '80:80'
   php-fpm:
