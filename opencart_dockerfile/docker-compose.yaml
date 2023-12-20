@@ -1,0 +1,28 @@
+version: '3'
+
+services:
+  mysql:
+    image: mysql
+    environment:
+      MYSQL_DATABASE: opencart
+      MYSQL_USER: opencart
+      MYSQL_PASSWORD: password
+      MYSQL_ROOT_PASSWORD: password
+  adminer:
+    image: adminer
+    ports:
+      - 8080:8080
+  opencart:
+    build: .
+    restart: always
+    depends_on:
+      - mysql
+    ports:
+      - 80:80
+    # volumes:
+    #   - ./test:/opencart/
+    environment:
+      OPENCART_DB_USERNAME: opencart
+      OPENCART_DB_PASSWORD: password
+      OPENCART_HOSTNAME: mysql
+      OPENCART_HTTP_SERVER: http://192.168.3.110/

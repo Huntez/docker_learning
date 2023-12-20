@@ -1,0 +1,34 @@
+Instruction for expluatation!
+
+1. Build image
+
+EXAMPLE: docker build . -t imagename:version
+
+2. Mount the folder along the path /opencart/
+
+EXAMPLE: docker run imagename -v ./opencart:/opencart/
+
+3. Set variables or stay with default
+variables for set and default values instead VAR: default
+
+EXAMPLE: docker run imagename -e OPENCART_USERNAME=admin
+
+# Admin user
+OPENCART_USERNAME: admin
+
+# Admin email
+OPENCART_EMAIL: email@example.com
+
+# Admin password
+OPENCART_PASSWORD: password
+
+OPENCART_HTTP_SERVER: http://localhost/
+OPENCART_HOSTNAME: mysql
+
+# Reqired
+OPENCART_DB_USERNAME: root
+OPENCART_DB_PASSWORD: pass
+
+OPENCART_DATABASE: opencart
+OPENCART_PORT: 3306
+OPENCART_PREFIX: oc
