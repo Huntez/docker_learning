@@ -1,0 +1,29 @@
+upstream php-upstream {
+    server unix:/run/php/php8.1-fpm.sock;
+}
+
+server {
+        listen       80;
+        server_name  localhost;
+        root         /opencart/upload;
+
+        access_log /var/log/nginx/example.journaldev.com-access.log;
+        error_log  /var/log/nginx/example.journaldev.com-error.log error;
+        index index.html index.htm index.php;
+
+        location / {
+                      try_files $uri $uri/ /index.php$is_args$args;
+        }
+        
+        location ~ \.php$ {
+            try_files $uri /index.php =404;
+            fastcgi_pass php-upstream;
+            fastcgi_index index.php;
+            fastcgi_buffers 16 16k;
+            fastcgi_buffer_size 32k;
+            fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+            #fixes timeouts
+            fastcgi_read_timeout 600;
+            include fastcgi_params;
+        }
+}

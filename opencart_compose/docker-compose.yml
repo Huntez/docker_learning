@@ -1,0 +1,29 @@
+version: '3'
+
+services:
+  mysql:
+    image: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: opencart
+      MYSQL_USER: opencart
+      MYSQL_PASSWORD: password
+  adminer:
+    image: adminer
+    depends_on:
+      - mysql
+    ports:
+      - '8080:8080'
+  nginx:
+    image: nginx:alpine
+    volumes:
+      - ./opencart-files/upload:/var/www/opencart
+      - ./nginx/conf.d/opencart.itstep.com.conf:/etc/nginx/conf.d/opencart.itstep.com.conf
+    ports:
+      - '80:80'
+  php-fpm:
+    build: ./php-fpm
+    volumes:
+      - ./opencart-files/upload:/var/www/opencart
+
+    
