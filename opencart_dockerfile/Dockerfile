@@ -10,6 +10,4 @@ COPY nginx/default /etc/nginx/sites-available/default
 COPY post-init.d post-init.d
 COPY post-init.sh .
 
-RUN chmod +x post-init.sh
-
-ENTRYPOINT ["./post-init.sh"]
+CMD ["bash", "post-init.sh"]

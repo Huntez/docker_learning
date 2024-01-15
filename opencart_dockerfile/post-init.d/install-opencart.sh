@@ -1,17 +1,19 @@
 #!bin/bash
 
-# copy unpacked files to root directory
-mkdir /opencart
-cp -rp /opt/opencart/upload /opencart
+if [ -z "$OPENCART_DB_USERNAME" ] && [ -z "$OPENCART_DB_PASSWORD" ]; then
+    echo "Set a user for opencart - OPENCART_DB_USERNAME"
+    echo "Set a password for opencart - OPENCART_DB_PASSWORD"
+    exit 0
+fi
 
 if [ -z "$OPENCART_DB_USERNAME" ]; then
-    echo "SET A USER FOR OPENCART - OPENCART_DB_USERNAME"
-    exit 1
+    echo "Set a user for opencart - OPENCART_DB_USERNAME"
+    exit 0
 fi
 
 if [ -z "$OPENCART_DB_PASSWORD" ]; then
-    echo "SET A PASSWORD FOR OPENCART - OPENCART_DB_PASSWORD"
-    exit 1
+    echo "Set a password for opencart - OPENCART_DB_PASSWORD"
+    exit 0
 fi
 
 connection_test=$(php /post-init.d/check-connection.php)
@@ -28,4 +30,6 @@ if [ "$connection_test" -eq 1 ]; then
                                 --db_database "${OPENCART_DATABASE:-opencart}" \
                                 --db_port     "${OPENCART_PORT:-3306}" \
                                 --db_prefix   "${OPENCART_PREFIX:-oc_}"
+else
+    echo "Cant connect to MySQL, exit"
 fi

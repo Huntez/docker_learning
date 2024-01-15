@@ -17,3 +17,7 @@ mv $path/upload/admin/config-dist.php $path/upload/admin/config.php
 
 # set www-data user with uid-gid
 chown -R 33:33 $path
+
+# copy unpacked files to root directory
+mkdir /opencart
+cp -rp /opt/opencart/upload /opencart
