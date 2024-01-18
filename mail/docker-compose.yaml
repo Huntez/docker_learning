@@ -1,0 +1,47 @@
+version: '3'
+
+services:
+  mysql:
+    image: mysql
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=password
+    volumes:
+      - ./mysql/init:/docker-entrypoint-initdb.d
+  phpmyadmin:
+    image: phpmyadmin
+    ports:
+      - 81:80
+    environment:
+      - PMA_HOST=mysql
+  roundcube:
+    image: roundcube/roundcubemail
+    depends_on:
+      - mysql
+    ports:
+      - 83:80
+    volumes:
+      - ./roundcube/custom-config.php:/var/roundcube/config/custom-config.php
+      - ./roundcube/mysql-connection-check.php:/scripts/mysql-connection-check.php
+    healthcheck:
+      test: ["CMD", "php", "/scripts/mysql-connection-check.php"]
+      interval: 1s
+      timeout: 3s
+      retries: 0
+      start_period: 2s
+    restart: always
+    labels:
+      - autoheal=true
+  postfixadmin:
+    build: ./postfixadmin
+    ports:
+      - 82:80
+  autoheal:
+    image: willfarrell/autoheal
+    restart: always
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+
+
+    
+        
