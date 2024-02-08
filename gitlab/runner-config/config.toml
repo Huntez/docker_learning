@@ -1,0 +1,15 @@
+concurrent = 1
+check_interval = 0
+shutdown_timeout = 0
+
+[session_server]
+session_timeout = 1800
+
+[[runners]]
+name = "my-project-runner1"
+url = "https://gitlab.mysite.com/"
+id = 38
+token = "glrt-Nvvbnayy6zpSVRqcUTP9"
+token_obtained_at = 2023-07-05T08:56:33Z
+token_expires_at = 0001-01-01T00:00:00Z
+executor = "shell"

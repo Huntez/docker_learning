@@ -3,3 +3,7 @@ wp-content/
 wp-config.php
 upload/
 postfixadmin/
+gitlab/data/
+gitlab/logs/
+gitlab/config/
+.runner_system_id
